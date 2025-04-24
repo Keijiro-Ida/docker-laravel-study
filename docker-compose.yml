@@ -17,6 +17,19 @@ services:
         - db-store:/var/lib/mysql
       ports:
       - 3306:3306
+  frontend:
+    build:
+      context: ./front
+      dockerfile: ../infra/frontend/Dockerfile
+
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    working_dir: /app
+    command: ["npm", "start"]
+
 
 volumes:
   db-store:
